@@ -1,0 +1,18 @@
+apiVersion: skaffold/v2alpha1
+kind: Config
+metadata:
+  name: react-rocket-posgre
+build:
+  artifacts:
+  - image: shinsaku0523/next
+    context: frontend
+deploy:
+  kubectl:
+    manifests:
+    - frontend/k8s-next.yml
+portForward:
+- resourceType: service
+  resourceName: frontend
+  namespace: frontend
+  port: 3000
+  localPort: 3000
